@@ -1,0 +1,568 @@
+/* Reset default margin, padding, and set box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* Body background image and settings */
+body {
+    background-image: url(covers/8.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Song title/artist text alignment */
+.music{
+    text-align: justify;
+}
+
+/* Main music player container styling */
+.Music_Player {
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    min-width: 0;
+    min-height: 0;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 16px 8px; /* Responsive padding */
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navigation bar styling */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 10px;
+    padding-top: 20px;
+    padding-bottom: 0px;
+}
+
+/* Title and library text styling */
+.title,
+.Main_library{
+    font-size: 12px;
+    color: antiquewhite;
+    text-align: center;
+}
+
+.Main_library{
+    color: fae3c6;
+    font-size: 11px;
+    padding-bottom: 40px
+}
+
+/* Song image styling */
+.song_img img {
+    width: auto;
+    height: auto;
+    max-width: 100vw;
+    max-height: 40vh;
+    object-fit: cover;
+    border-radius: 0;
+    margin: 0 10px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.9);
+}
+
+/* Song detail section */
+.song_detail{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    padding-top: 70px;
+}
+
+.music{
+    color: #fae3c6
+}
+
+/* Progress bar styling */
+#progress_bar{
+    -webkit-appearance: none;
+    width: 95%;
+    height: 5px;
+    margin: 10px 0;
+    padding-right: px;
+    cursor: pointer;
+    border-radius: 4px;
+    background: linear-gradient(to right, #f77f07, #eae8e5);
+}
+
+/* Progress bar thumb styling for Chrome/Safari */
+#progress_bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+/* Progress bar thumb hover effect */
+#progress_bar::-webkit-slider-thumb:hover {
+    /* border: #f802e4 2px solid; */
+    box-shadow: 10 0 5px rgba(4, 226, 19, 0.5);
+}
+
+/* Controls section styling */
+.control{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+
+/* Time display styling */
+.time{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    margin-top: 8px;
+    color: #ffffff;
+}
+
+/* FontAwesome icon styling */
+.fa-solid{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Play button styling */
+.playbutten{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #f77f07;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.9);
+}
+
+/* Icon and button color styling */
+.more,
+.back,
+.fav,
+.next,
+.prev,
+.playbutten,
+.fa-volume-low,
+.fa-volume-high,
+.playlist{
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Shuffle, repeat, title, and music color styling */
+.shufle,
+.repeat{
+    color: #898AC4;
+}
+
+/* Playlist container styling (hidden by default, slides up when fullscreen) */
+.playlist-container {
+    display: none;
+    flex-direction: column;
+    background: rgba(34,34,34,0.95);
+    color: #fff;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: -100vh; /* Start hidden below the screen */
+    max-height: 200px;
+    overflow: hidden;
+    border-radius: 18px 18px 0 0;
+    z-index: 100;
+    padding: 0;
+    box-shadow: 0 0 24px 0 rgba(0,0,0,0.5);
+    transition: clip-path 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s, bottom 0.5s cubic-bezier(0.4,0,0.2,1), max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+    opacity: 1;
+    width: 100vw;
+    height: auto;
+    backdrop-filter: blur(8px);
+}
+.playlist-container.show {
+    display: flex;
+}
+.playlist-container.fullscreen {
+    clip-path: circle(150% at 50% 50%);
+    bottom: 0;
+    opacity: 1;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    transition: clip-path 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s, bottom 0.5s cubic-bezier(0.4,0,0.2,1), max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+    cursor: grab;
+}
+.playlist-container.closing {
+    clip-path: circle(0% at 50% 50%);
+    bottom: -100vh;
+    opacity: 0;
+    pointer-events: none;
+    transition: clip-path 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.5s, bottom 0.5s cubic-bezier(0.4,0,0.2,1), max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Playlist header with drag handle and close button */
+.playlist-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center all content horizontally */
+    position: relative;
+    padding: 16px 20px 8px 20px;
+    border-bottom: 1px solid #444;
+    background: transparent;
+    min-height: 60px;
+}
+.playlist-drag-handle {
+    width: 40px;
+    height: 5px;
+    background: #666;
+    border-radius: 3px;
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    transform: translateX(-50%);
+    opacity: 0.7;
+}
+.playlist-title {
+    flex: 1;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #f7b207;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Optional: keep tabs and close button at sides */
+.playlist-tabs {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+.playlist-close {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+/* Playlist items: modern look */
+.playlist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 1rem;
+    gap: 12px;
+}
+.playlist-item:last-child {
+    border-bottom: none;
+}
+.playlist-item:hover, .playlist-item.active {
+    background: #292929;
+}
+.playlist-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* Center horizontally */
+    justify-content: center; /* Center vertically if needed */
+    width: 100%;
+}
+.playlist-song_name {
+    font-weight: 600;
+    color: #fff;
+    text-align: center;    /* Center text */
+}
+.playlist-artist {
+    color: #f7b207;
+    font-size: 0.95em;
+    opacity: 0.85;
+    margin-top: 2px;
+    text-align: center;    /* Center text */
+}
+.playlist-duration {
+    color: #fff;
+    font-size: 0.98em;
+    margin-top: 2px;
+    margin-bottom: 0;
+    padding: 0;
+}
+.playlist-duration-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Left align */
+}
+.playlist-chart-icon {
+    margin-top: 2px;
+    color: #f7b207;
+    font-size: 1.1em;
+}
+
+/* Song cover image in playlist */
+.playlist-song-cover {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-right: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+
+/* Fullscreen playlist animation (slide up from bottom) */
+.playlist-container.fullscreen {
+    bottom: 0;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+    transition: bottom 0.5s cubic-bezier(0.4,0,0.2,1), max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+    cursor: grab;
+}
+
+/* Up arrow icon styling */
+.fa-angle-up{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+}
+
+/* Playlist button styling (footer) */
+.playlist {
+    display: flex;
+    align-items: center;
+    gap: 8px;                  /* Icon aur text ke beech gap */
+    font-size: 1.2rem;
+    color: #fff;               /* Ya apni color */
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-top: 80px;
+}
+
+/* Footer styling */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;         /* Optional: footer height */
+    background: transparent;
+    border: none;
+    width: 100%;
+    cursor: grab;
+}
+
+/* Volume slider styling */
+.volume_bar {
+    -webkit-appearance: none;
+    width: 50%;
+    height: 5px;
+    margin: 10px 0;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    background: linear-gradient(to right, #f77f07, #f7b207);
+    outline: none;
+    transition: background 0.3s;
+}
+
+/* Volume slider thumb for Chrome/Safari */
+.volume_bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    /* border: 2px solid #f77f07; */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Volume slider thumb for Firefox */
+.volume_bar::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #f77f07;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+/* Volume slider thumb for IE */
+.volume_bar::-ms-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #f77f07;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+/* Remove outline on focus */
+.volume_bar:focus {
+    outline: none;
+}
+
+/* Volume control container */
+.volume {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    width: 100%;
+}
+
+/* Background image styling */
+.bg_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    border-radius: none;
+}
+
+/* Background image filter and fit */
+.bg_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur() brightness(0.4);
+    border-radius: 8px;
+}
+
+/* Shuffle button active state */
+.shufle.active {
+    color: #fff;
+}
+
+/* Repeat button active state */
+.repeat.active {
+    color: #fff;
+}
+
+/* Range input fallback */
+input[type="range"] {
+    width: 50%;
+    height: 5px;
+    border-radius: 4px;
+    background: #444; /* fallback */
+    outline: none;
+    transition: background 0.3s;
+}
+
+/* Responsive font and padding for small screens */
+@media (max-width: 600px) {
+    .Music_Player {
+        font-size: 14px;
+    }
+    .song_img img {
+        max-height: 30vh;
+    }
+}
+
+/* Custom scrollbar for playlist container */
+.playlist-container {
+    scrollbar-width: thin;
+    scrollbar-color: #f7b207 #222;
+}
+.playlist-container::-webkit-scrollbar {
+    width: 8px;
+}
+.playlist-container::-webkit-scrollbar-thumb {
+    background: #f7b207;
+    border-radius: 4px;
+}
+
+/* Active playlist item styling */
+.playlist-item.active {
+    background: linear-gradient(90deg, #f7b20733 0%, #292929 100%);
+    border-left: 4px solid #f7b207;
+    box-shadow: 0 2px 12px 0 rgba(247,178,7,0.10);
+    position: relative;
+    transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+}
+
+.playlist-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: #f7b207;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Add to custom button styling */
+.add-to-custom {
+    background: none;
+    border: none;
+    color: #f7b207;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 6px;
+    margin-left: 8px;
+    transition: color 0.2s;
+}
+.add-to-custom:hover {
+    color: #fff;
+}
+
+/* Playlist tabs styling */
+.playlist-tabs {
+    background: #232526;
+    border-radius: 8px;
+    padding: 4px 0;
+}
+.playlist-tab {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    padding: 4px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.playlist-tab.active {
+    background: #f7b207;
+    color: #232526;
+    font-weight: bold;
+}
+
+/* Playlist scroll area for custom scrolling */
+.playlist-scroll-area {
+    overflow-y: auto;
+    height: calc(100% - 60px); /* adjust for header height */
+    -webkit-overflow-scrolling: touch;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags and external resources -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="style.css"> <!-- Main CSS file -->
+    <script src="https://kit.fontawesome.com/d6fc7b9974.js" crossorigin="anonymous"></script> <!-- FontAwesome icons -->
+</head>
+<body>
+    <div class="Music_Player">
+        <!-- Blurred background image for player -->
+        <div class="bg_img">
+            <img alt="Background Image" id="bg_img">
+        </div>
+        <!-- Top navigation bar -->
+        <nav>
+            <div class="nav">
+                <i class="fa-solid fa-angle-down back" title="Back"></i> <!-- Back button -->
+                <h1 class="title">PLAYING FROM PLAYLIST</h1>
+                <i class="fa-solid fa-ellipsis-vertical more" title="Menu"></i> <!-- More options -->
+            </div>
+            <div>
+                <h3 class="Main_library">"Library Songs"</h3>
+            </div>
+        </nav>
+        <!-- Song cover image -->
+        <div class="song_img">
+            <img id="img" alt="Song Image">
+        </div>
+        <!-- Song details: title and artist -->
+        <div class="song_detail">
+            <div class="music">
+                <h1 class="song_name">DONALI</h1>
+                <p class="artist">Harkirat Sangha, Starboy X</p>
+            </div>
+            <div class="Favorite">
+                <i class="fa-regular fa-heart fav"></i> <!-- Favorite (heart) icon -->
+            </div>
+        </div>
+        <!-- Progress bar and time display -->
+        <div class="progress">
+            <audio id="song"></audio>
+            <input type="range" id="progress_bar" value="0">
+            <div class="time">
+                <span class="current">0:00</span>
+                <span class="duration">0:00</span>
+            </div>
+        </div>
+        <!-- Music control buttons -->
+        <div class="control">
+            <i class="fa-solid fa-shuffle shufle"></i>
+            <i class="fa-solid fa-backward-step prev"></i>
+            <div onclick="PlayPause()" class="playbutten">
+                <i class="fa-solid fa-play play" id="play_but"></i>
+            </div>
+            <i class="fa-solid fa-forward-step next"></i>
+            <i class="fa-solid fa-repeat repeat"></i>
+        </div>
+        <!-- Volume control -->
+        <div class="volume">
+            <i class="fa-solid fa-volume-low"></i>
+            <input type="range" class="volume_bar" min="0" max="100">
+            <i class="fa-solid fa-volume-high"></i>
+        </div>
+        <!-- Playlist popup container (hidden by default, shown via JS) -->
+        <div class="playlist-container">
+            <div class="playlist-header">
+                <div class="playlist-tabs">
+                    <button class="playlist-tab active" data-tab="all">All Songs</button>
+                    <button class="playlist-tab" data-tab="favorite">Favorite</button>
+                    <!-- <button class="playlist-tab" data-tab="custom">My Playlist</button> -->
+                </div>
+                <span class="playlist-title"></span>
+                <i class="fa-solid fa-xmark playlist-close"></i>
+            </div>
+            <div class="playlist-duration-block">
+                <div class="playlist-duration" id="playlist-duration-0">--:--</div>
+                <div class="playlist-chart-icon" id="playlist-chart-0">
+                    <i class="fa-solid fa-chart-simple"></i>
+                </div>
+            </div>
+            <div class="playlist-scroll-area">
+                <!-- playlist items go here -->
+            </div>
+        </div>
+        <!-- Footer with playlist toggle button (drag up to open) -->
+        <footer>
+            <div class="playlist">
+                <i class="fa-solid fa-angle-up"></i> <!-- Show playlist button -->
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script> <!-- Main JS file -->
+</body>
+</html>
